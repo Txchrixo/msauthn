@@ -1,0 +1,67 @@
+/api/v1/oauth2/{provider}:
+  post:
+    summary: Initiates OAuth login or registration
+    description: Begins the OAuth login or registration process for a specified provider (e.g., Google or Facebook).
+    tags: [OAuth2]
+    parameters:
+      - in: path
+        name: provider
+        required: true
+        schema:
+          type: string
+          enum: [google, facebook]
+        description: The OAuth provider, currently supports "google" and "facebook".
+    responses:
+      200:
+        description: OAuth flow initiation successful. Redirects to the provider's OAuth URL.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "Redirecting to OAuth provider"
+                authUrl:
+                  type: string
+                  description: The authorization URL for the OAuth provider.
+                  example: "https://accounts.google.com/o/oauth2/auth..."
+      400:
+        description: Bad request due to invalid or unsupported provider.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                errorCode:
+                  type: string
+                  example: "ERR_INVALID_OAUTH_PROVIDER"
+                message:
+                  type: string
+                  example: "Invalid OAuth provider error"
+      401:
+        description: Unauthorized access (e.g., missing or invalid authorization header).
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                errorCode:
+                  type: string
+                  example: "ERR_INVALID_TOKEN"
+                message:
+                  type: string
+                  example: "Token is invalid or expired"
+      500:
+        description: Internal server error (e.g., external service error).
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                errorCode:
+                  type: string
+                  example: "ERR_EXTERNAL_SERVICE"
+                message:
+                  type: string
+                  example: "External service error"

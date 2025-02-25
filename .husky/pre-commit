@@ -1,0 +1,10 @@
+# Run the project's test suite
+echo "Running tests..."
+npm run test
+
+# Lint and format staged files before committing
+echo "Linting and formatting staged files..."
+npm run format
+npm run lint:fix
+
+echo "Pre-commit checks completed successfully."

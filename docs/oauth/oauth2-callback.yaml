@@ -1,0 +1,69 @@
+/api/v1/oauth2/{provider}/callback:
+  post:
+    summary: OAuth callback
+    description: Handle the callback from OAuth providers (Google, Facebook). It exchanges the authorization code for tokens and authenticates/creates the user if necessary.
+    tags: [OAuth2]
+    parameters:
+      - in: path
+        name: provider
+        required: true
+        schema:
+          type: string
+          enum: [google, facebook]
+        description: OAuth provider (Google or Facebook)
+      - in: query
+        name: code
+        required: true
+        schema:
+          type: string
+        description: Authorization code from the OAuth provider.
+    responses:
+      200:
+        description: Successful OAuth callback handling. Returns access and refresh tokens.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accessToken:
+                  type: string
+                  description: PASETO access token for authentication.
+      400:
+        description: Bad request due to invalid or missing parameters (e.g., invalid provider or code).
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                errorCode:
+                  type: string
+                  example: ERR_INVALID_OAUTH_PROVIDER
+                message:
+                  type: string
+                  example: Invalid OAuth provider
+      401:
+        description: Unauthorized access due to missing code or code verifier.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                errorCode:
+                  type: string
+                  example: ERR_INVALID_CREDENTIALS
+                message:
+                  type: string
+                  example: Authentication failed
+      500:
+        description: Server error or external service failure.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                errorCode:
+                  type: string
+                  example: ERR_EXTERNAL_SERVICE
+                message:
+                  type: string
+                  example: External service error                

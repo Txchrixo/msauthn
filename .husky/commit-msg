@@ -1,0 +1,7 @@
+echo "Running commit-msg hook..."
+
+# Run commitlint to validate the commit message against the configured rules
+echo "Validating commit message with commitlint..."
+npx --no-install commitlint --edit "$1"
+
+# If commitlint fails, the hook will prevent the commit from proceeding

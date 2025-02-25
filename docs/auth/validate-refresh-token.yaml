@@ -1,0 +1,56 @@
+/api/v1/auth/refresh-token:
+  post:
+    summary: Refresh an access token
+    description: Generates a new access token and refresh token if the provided refresh token is valid. The new refresh token is set as an HTTP-only cookie.
+    tags: [Authentication]
+    security:
+      - bearerAuth: []
+    responses:
+      200:
+        description: New access token provided
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accessToken:
+                  type: string
+                  description: The newly generated access token.
+                example:
+                  accessToken: "newAccessTokenStringHere"
+      400:
+        description: Token in cookies is missing
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "Token in cookies is missing"
+      401:
+        description: Invalid or expired refresh token
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  example: "ERR_INVALID_TOKEN"
+                message:
+                  type: string
+                  example: "Token is invalid or expired"
+      500:
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  example: "ERR_INTERNAL_SERVER"
+                message:
+                  type: string
+                  example: "An internal server error occurred"

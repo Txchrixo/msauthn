@@ -1,0 +1,29 @@
+# Node modules
+node_modules
+node_modules/*
+.history
+.history/*
+
+# Environment files
+.env
+.env.development
+.env.production
+
+# IDE config files
+.vscode
+.vscode/*
+
+# Keys files
+.key
+keys/*
+
+# Logs files
+.log
+logs/*
+
+# Package lock
+package-lock.json
+
+# Other files
+*.log
+*.tmp

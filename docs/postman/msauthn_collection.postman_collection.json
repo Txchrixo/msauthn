@@ -1,0 +1,343 @@
+{
+	"info": {
+		"_postman_id": "6474fbb5-734d-4e34-999a-1a4d8ef1a6f8",
+		"name": "msauthn_collection",
+		"description": "## Overview of msauthn\n\nThis Postman collection provides the endpoints for msauthn. It includes core operations required for managing user sessions such as login, logout, token refreshing, and token validation.\n\n## Endpoints\n\n### 1\\. **Login**\n\n- **Description**: Authenticates the user with email and password, and returns an access token for authorized requests.\n    \n- **Method**: `POST`\n    \n- **URL**: `{{base_url}}/login`\n    \n- **Parameters**:\n    \n    - `email`: The user's email address (required).\n        \n    - `password`: The user's password (required).\n        \n    - `g-recaptcha-response`: Optional Google reCAPTCHA token.\n        \n- **Response**: Access token, status code, and additional authentication details.\n    \n\n### 2\\. **Logout**\n\n- **Description**: Ends the current user session by invalidating the active token.\n    \n- **Method**: `POST`\n    \n- **URL**: `{{base_url}}/logout`\n    \n- **Parameters**:\n    \n    - `email`: The user's email address (optional).\n        \n    - `password`: The user's password (optional).\n        \n    - `userId`: Unique identifier for the user (required).\n        \n- **Response**: Status message confirming session termination.\n    \n\n### 3\\. **Refresh Token**\n\n- **Description**: Requests a new access token using the current refresh token, extending the session's validity.\n    \n- **Method**: `POST`\n    \n- **URL**: `{{base_url}}/refresh-token`\n    \n- **Parameters**:\n    \n    - `email`: The user's email address (required).\n        \n    - `password`: The user's password (required).\n        \n    - `userId`: Unique identifier for the user (required).\n        \n- **Response**: New access token with updated expiration.\n    \n\n### 4\\. **Validate Refresh Token**\n\n- **Description**: Validates the provided refresh token to ensure it's active and valid for obtaining new access tokens.\n    \n- **Method**: `POST`\n    \n- **URL**: `{{base_url}}/validate-refresh-token`\n    \n- **Parameters**:\n    \n    - `token`: The refresh token to validate (required).\n        \n- **Response**: Status of the token validation.\n    \n\n## Setup Instructions\n\n1. **Set the** **`base_url`** **variable**: Update `{{base_url}}` to your API's base URL.\n    \n2. **Authorization**: Ensure proper configuration for secure endpoints as per your environment.\n    \n3. **Environment Variables**: Use Postman's environment features to switch between dev, staging, and production setups.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "22111701"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "user",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "passwords",
+							"type": "text"
+						},
+						{
+							"key": "g-recaptcha-response",
+							"value": "03AFcWeA4PKGK3s6eypY2_ZC3xtypP-6MzD0lm4FjhoajZNVyxNxOm-yHtJkJRfFP_e9RhnvBQhzFOntKEXhJUVBDfBWeoxKAN9M_66ZJZLY7JYp54VC9PbTfREfmfms9vMCaX8vKl1Pg4AHIL4pmiX0C2oVcqpUEEalABdPHLfwEbLFuRo2Z8g0tyfmKWckURbuAbe-J8aSCjNbuqsISqxZnu4xyQQctUDb_GDstUxquRWA0fedVDb8daISYPP7S6AUC7Nr-PBxqFF071ADN2YKyAwxUl_Zb2UBicG7e5ue6AKA3M0JhTysTH5zF9xWFSI0z1BIZB2Sn9roYZdT-OjfVaPT0yhe9ZlgcQ5k5-IDjUwbqkac5FW8lwrs4BOSH8IJaGcfGi68ImW3hRyVdVueQ9ybI2-yoe-cAAFh6PalAbVqp9WD1OYbSd5nr8IdpZM0YAomY9mgB_CI1duvMPAS7sR27gdMUaMWRtmI2yj-mpoDxtpaVrvX49X8JC1a-r7sFxnisXeS-F4D1cu7gKmsnprCKtYEWL9q6-TJT2gOchUyXV5OtldKsslZLhxTwlyAmoWmYVSN7HPdi-i1AjhX-jJ-cXNBd79MlYrGiUoG0j_QU5RVr_-flePib8QjLcJXCwLm4LqWujv4d0n6KIK-ucgYM62PyCDz9Ct6V1Kjl7NE5M1LUNheoXBThE3tCptj7UP5C0pu-zo513VE3KR5HweaERvBSiT-SiUKuxxRpidz6rwYi0hcqREXgxYvIhHhz5IMOeGhmkZnSKhKj2IExB6e4JLdNi29-l2giwWmYyyAUk9XuNbYFKT9AyB10N4RWyv5txAh0GOPShMFJsZrZQeXLschvoRizUA_xNuoE8PTMpmyV5WP0UUDYPwcjq1pkAeuTCKZYrvts3hiJAtreXdmJRis8P7ZwmKKll-rvhKY7njZyMkYOoswMgMgsA9o4-PkThMjYvXwxt9mGmpPP1qOYJiJjmGK56j7AIXcF2tohMptkL8Y6q7dxi_MAcqhw2ikW14iVo9fF7eO07PuoBAwNG6rbapOJzgLIU3FRCP7fGLwFLBREX-Y743S6QOEOBZBAl6S5Gu414Dwx_l3Zh4XcS2cAddaRFgwFwdummfjD1L7LprAIuByPtmHRIcUK_OZPf893x39xOvH6sQignIQgQ9Gwxew-hO2nvv1yivHMN-RI-cHgc9M5ayTa_YoI6rbt6vIUz8Jqv1LWdAC7l4etEifJfiAem7lqxGDTq1zCUkWlxtBI09euCZ1wa5wljQlV8GpvBw4UdkUdqpUOIQqXyS_gBL_ICVlSN7iRQDhhY8fvx3YHoE0pBke3kchVOtMapbuFGjTEuQBYuE1ut93-tIwpYGEdESM5vgkHCcP90SpN5G0YHLjv1EORH-tNwU2PozprahS0C1nSYHZ6wphFHdT3fpn9MmpeO2F3LpbS6C6cu25-UMUj5p6jF59YCz8IJI4Bb4HRL72YmOM0y8iSlZXxpA5LcH1IA9RwATOttSeSRwwFLh2o71D2oD5UZKMfIcuTiNz_ev6SPuc56ot9t0k8q6iTA7B9CHoIjkv9nBm34cJXuwzj-rvUDX0VvXWMa_2Kkq4n7CT80wQ6a-A1PLFjZUGddpr_oN8LfimyZNQKRc8tPrm3Wc4GKzxfJSg0Q2tMOXD0j0-bRVET4gslSx--OMO61LjSL2Dn3sNM9T4l0sOOL3QMhIQp6lH3wQFLqzmtudc07x2qNZQurkFrraqbmVLYhq7o0fcYpINW8TUAFra7vgvWx3-B9pvynfsyp-uVQIvc_DiyMAChvhTgZyLaDpsF0xGNgi9rVUuhilIzUulpIT3THlEsVCNEi8V9lb5g-NAmk6dfeZ3LW4xzxAQ0iCHVyD5oUFovE0bOXyJKh_Aw",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": "{{base_url}}/login"
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "user@example.com",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "userId",
+							"value": "66e7a5e62389501a5ffd7cfd",
+							"type": "text"
+						}
+					]
+				},
+				"url": "{{base_url}}/logout"
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "user@example.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "userId",
+							"value": "66e7a5e62389501a5ffd7cfd",
+							"type": "text"
+						}
+					]
+				},
+				"url": "{{base_url}}/refresh-token"
+			},
+			"response": []
+		},
+		{
+			"name": "Validate Refresh Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "token",
+							"value": "v4.public.eyJ1c2VySWQiOiI2NmU3YTVlNjIzODk1MDFhNWZmZDdjZmQiLCJpYXQiOiIyMDI0LTEwLTMwVDEyOjIyOjIyLjk3OVoiLCJleHAiOiIyMDI0LTEwLTMwVDEyOjM3OjIyLjk3OVoiLCJpc3MiOiJwb3NhcGkifVzJnhgq4jsmKearnvdTgXfABbLxd6E2sJGiVVZtMU0qNGY71sqvn8mrQgwbEt82Qt8iL4A0WjPhEzl6Iwe9CQ0",
+							"type": "text"
+						},
+						{
+							"key": "token",
+							"value": "v4.public.eyJ1c2VyIjp7InN1YiI6IjY2ZTdhNWU2MjM4OTUwMWE1ZmZkN2NmZCIsImVtYWlsIjoidXNlckBleGFtcGxlLmNvbSIsInJvbGUiOiJhZG1pbiIsInBlcm1pc3Npb25zIjpbXX0sImlhdCI6IjIwMjQtMDktMTZUMTM6NDA6NTEuMTE3WiIsImV4cCI6IjIwMjQtMDktMTZUMTQ6NDA6NTEuMTE3WiIsImlzcyI6InBvc2FwaSJ9qTDWMaHPB24o9XiCOJ-ZnSkdj6CoRzzx1sc6YrT3m-s19Vg5BCek74xBSk-DIYeVQT5ZpTdKMQEm9Jr5d3SfDA",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/validate-token",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"validate-token"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request Reset Password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "user@example.com",
+							"type": "text"
+						},
+						{
+							"key": "redirectUrl",
+							"value": "https://permify.co",
+							"type": "text"
+						}
+					]
+				},
+				"url": "{{base_url}}/reset-password"
+			},
+			"response": []
+		},
+		{
+			"name": "Validate Reset Password Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "token",
+							"value": "{{resetPwdToken}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": "{{base_url}}/reset-password/validate-reset-token"
+			},
+			"response": []
+		},
+		{
+			"name": "Set New Password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "resetToken",
+							"value": "{{resetPwdToken}}",
+							"type": "text"
+						},
+						{
+							"key": "newPassword",
+							"value": "{{newPassword}}",
+							"type": "text"
+						},
+						{
+							"key": "repeatNewPassword",
+							"value": "{{newPassword}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/reset-password/set-new-password",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"reset-password",
+						"set-new-password"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Password",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "oldPassword",
+							"value": "{{oldPassword}}",
+							"type": "text"
+						},
+						{
+							"key": "newPassword",
+							"value": "{{newPassword}}",
+							"type": "text"
+						},
+						{
+							"key": "repeatNewPassword",
+							"value": "{{newPassword}}",
+							"type": "text"
+						},
+						{
+							"key": "userId",
+							"value": "{{changePasswordUserId}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": "{{base_url}}/change-password"
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "user@examplee.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{user_password}}",
+							"type": "text"
+						},
+						{
+							"key": "firstName",
+							"value": "Chris",
+							"type": "text"
+						},
+						{
+							"key": "lastName",
+							"value": "James",
+							"type": "text"
+						},
+						{
+							"key": "phoneNumber",
+							"value": "+12345678999",
+							"type": "text"
+						}
+					]
+				},
+				"url": "{{base_url}}/register"
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://postman-rest-api-learner.glitch.me/"
+		}
+	]
+}

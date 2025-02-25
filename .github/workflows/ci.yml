@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  auth-service:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.9.0'
+
+      - name: Install auth-service dependencies
+        working-directory: ./
+        run: npm install
+
+      - name: Run unit tests
+        working-directory: ./
+        run: npm run test
+
+      - name: Run linter
+        working-directory: ./
+        run: npm run lint --max-warnings=0

@@ -1,0 +1,15 @@
+[
+  {
+    "_id": {
+      "$oid": "66e7a5e62389501a5ffd7cfd"
+    },
+    "role": "shop_owner",
+    "email": "user@example.com",
+    "firstName": "John",
+    "lastName": "Doe",
+    "phoneNumber": "+1234567890",
+    "permissions": ["addProduct", "addEmployee"],
+    "password_hash": "$2b$10$ztHF5YfN73uP.DU5Vzzaa.lyr1Jr2fO7/UHGqhEgFvo7Ne31oM4IW",
+    "__comment": "password is 'password'"
+  }
+]

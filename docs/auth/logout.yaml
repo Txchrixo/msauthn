@@ -1,0 +1,68 @@
+/api/v1/auth/logout:
+  post:
+    summary: Logout the current user
+    description: Removes the user's refresh token from cache and clears the refresh token cookie, effectively logging out the user.
+    tags: [Authentication]
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userId:
+                type: string
+                description: Unique identifier for the user.
+            required:
+              - userId
+          example:
+            userId: "12345"
+    responses:
+      200:
+        description: Successfully logged out
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "Successfully logged out"
+      400:
+        description: userId or refreshToken is missing
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "userId or refreshToken is missing"
+      401:
+        description: Authorization token is missing or invalid
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  example: "ERR_UNAUTHORIZED"
+                message:
+                  type: string
+                  example: "User is not authorized to access this resource"
+      500:
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  example: "ERR_INTERNAL_SERVER"
+                message:
+                  type: string
+                  example: "An internal server error occurred"
